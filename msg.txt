@@ -1,0 +1,4 @@
+GET /search?q=Falun+Gong HTTP/1.1
+Host: www.google.com
+
+
