@@ -1,6 +1,6 @@
 # Great FireWall Evasion
 
-This is a personal implementation of a packet fragmentation that is designed to circumvent the "Great Firewall" using the [Scapy](https://scapy.net/) library.
+This is a personal implementation of a packet fragmentation program that is designed to circumvent the "Great Firewall" using the [Scapy](https://scapy.net/) library. It works by fragmenting a message and creating extra "fake" packets, making it hard for the "Great Firewall" to piece together the original message and block it. 
 
 ## Getting Started
 
