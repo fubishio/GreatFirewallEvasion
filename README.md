@@ -4,7 +4,7 @@ This is a personal implementation of a packet fragmentation program that is desi
 
 ## Getting Started
 
-Requires Python 2.7+ and [Scapy](https://scapy.net/) library. Please check [here](https://scapy.readthedocs.io/en/latest/installation.html) for installation instructions. The program must have root privileges and must have permissions to send packets as many machines don't give that to you by default. I used Ubuntu 18.04.1 LTS as a VM but should work on any machine with correct environment and permissions set up.
+Requires Python 2.7+ and [Scapy](https://scapy.net/) library. Please check [here](https://scapy.readthedocs.io/en/latest/installation.html) for installation instructions. The program must have root privileges and permissions to send packets as most machines don't give that to you by default. I used Ubuntu 18.04.1 LTS as a VM to develop and run this.
 
 ### Goals
 The goal of this project is to send a https request for [Falun Gong](https://en.wikipedia.org/wiki/Falun_Gong) past the Great Firewall to China's [Ministry of IT](www.miit.gov.cn) page. Falun Gong is definitely not OK in China and is known to be censored and blocked by China's Great Firewall. To bypass the firewall, I made a packet sender that fragments and creates "dummy" packets. More details in Concepts.
@@ -26,7 +26,7 @@ You should
 ## Testing
 The internet is not consistent enough for writing JUnit-esque tests to test my implementation because it is not guaranteed to use the same path or respond the same way everytime. Instead, to test the implementation, I wrote mains for all 3 of the functions and sent a Google search request for Falun Gong to a Chinese government website and checked outputs to make sure its consistent with expected behavior of the Great Firewall.  
 Here are the expected behaviors of my written function:   
-* checkfirewall - I know this function must return FIREWALL most of the time because Falun Gong search request is definitely blocked by Chinese government  
+* checkfirewall - This function must return FIREWALL most of the time because anything related to Falun Gong is definitely blocked and censored by the Chinese government  
 * traceroute - RST packets are sent in the middle of the hops instead of the beginning hops because a packet should not go straight from your location to the firewall immediately. Any other behavior would indicate that my implementation failed. Also I run original traceroute in Ubuntu to make sure it looks similar.  
 * frag - It should get a 404 request back because information about Falun Gong cannot possibly be on the Chinese government website. I run it and see if I get a response back from the Chinese government website because if the connection is closed with an RST packet, nothing will be returned.
 
