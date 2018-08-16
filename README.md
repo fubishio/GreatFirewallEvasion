@@ -4,7 +4,7 @@ This is a personal implementation of a packet fragmentation program that is desi
 
 ## Getting Started
 
-Requires Python 2.7+ and [Scapy](https://scapy.net/) library. Please check [here](https://scapy.readthedocs.io/en/latest/installation.html) for installation instructions. The program must have root privileges and permissions to send packets as most machines don't give that to you by default. Also make sure that the router does not block traffic from this program as this could possibly stop packets from leaving your network. I personally used Ubuntu 18.04.1 LTS as a VM to develop and run this.  
+Requires Python 2.7+ and [Scapy](https://scapy.net/) library. Please check [here](https://scapy.readthedocs.io/en/latest/installation.html) for installation instructions. The program must have root privileges and permissions to send packets as most machines don't give that by default. Also make sure that the router does not block traffic from this program as this could possibly stop packets from leaving the network. I personally used Ubuntu 18.04.1 LTS as a VM to develop and run this.  
 
 ### Goals
 The goal of this project is to send a https request for [Falun Gong](https://en.wikipedia.org/wiki/Falun_Gong) past the Great Firewall to China's [Ministry of IT](www.miit.gov.cn) page. Falun Gong is definitely not OK in China and is known to be censored and blocked by China's Great Firewall. To bypass the firewall, I made a packet sender that fragments and creates "dummy" packets. More details in Concepts.
@@ -15,11 +15,11 @@ There are 3 functions with a corresponding main python function/caller:
 * traceroute(.py) - my implementation of [traceroute](https://en.wikipedia.org/wiki/Traceroute) that shows if there is an RST packet returned with a `*` in the beginning  
 * frag(.py) - fragments the message/payload and sends the packets along with dummy packets with a shortened [ttl](https://en.wikipedia.org/wiki/Time_to_live) to make it harder to compute contraband messages (explained more in Concepts)  
 
-To use, you simply call either `sudo python checkfirewall.py`, `sudo python traceroute.py`, or `sudo python frag.py [number of hops]` in commandline. If you are on Ubuntu, it is important to use sudo because sudo has the most permissions and will not run without them. If you would like to change the inputs, in the main of checkfirewall.py, traceroute.py, and frag.py, you should change `target = "202.106.121.6"` to target = "[destination ip]". Also you can change the content of msg.txt as that is the payload.    
-You should  
+To use, simply call either `sudo python checkfirewall.py`, `sudo python traceroute.py`, or `sudo python frag.py [number of hops]` in commandline. If this is run on Ubuntu, it is important to use sudo because sudo has the most permissions and will not run without them. To change the inputs, in the main of checkfirewall.py, traceroute.py, and frag.py, change `target = "202.106.121.6"` to target = "[destination ip]". Also you can change the content of msg.txt as that is the payload.    
+To use, run:  
 1. `sudo python checkfirewall.py` to check if there is a firewall there
 2. `sudo python traceroute.py` to estimate at which hops the firewall would be
-3. `sudo python frag.py[ttl of dummy packets]` to send the packet over where number of hops is where you think the firewall is   
+3. `sudo python frag.py[ttl of dummy packets]` to send the packet over where ttl is where the firewall is thought to be at   
 
 ## Concepts
 The Great Firewall that I am trying to bypass refers to the on-path device that examines network packets and responds by injecting RST packets. This essentially severs a connection prematurely if it detects network behavior it doesn't like. Often times, packets will not just contain all the information in one packet and the Great Firewall must reassemble any message that spans across multiple packets. This method of circumventing the Great Firewall depends on the Great Firewall's need to reassemble messages.
@@ -42,7 +42,7 @@ If the Great Firewall cannot piece together the message, there would be a proble
 The internet is not consistent enough for writing JUnit-esque tests to test my implementation because it is not guaranteed to use the same path or respond the same way everytime. Instead, to test the implementation, I wrote mains for all 3 of the functions and sent a Google search request for Falun Gong to a Chinese government website and checked outputs to make sure its consistent with expected behavior of the Great Firewall.  
 Here are the expected behaviors of my written function:   
 * checkfirewall - This function must return FIREWALL most of the time because anything related to Falun Gong is definitely blocked and censored by the Chinese government  
-* traceroute - RST packets are sent in the middle of the hops instead of the beginning hops because a packet should not go straight from your location to the firewall immediately. Any other behavior would indicate that my implementation failed. Also I run original traceroute in Ubuntu to make sure it looks similar.  
+* traceroute - RST packets are sent in the middle of the hops instead of the beginning hops because a packet should not go straight from the source location to the firewall immediately. Any other behavior would indicate that my implementation failed. Also I run original traceroute in Ubuntu to make sure it looks similar.  
 * frag - It should get a 404 request back because information about Falun Gong cannot possibly be on the Chinese government website. I run it and see if I get a response back from the Chinese government website because if the connection is closed with an RST packet, nothing will be returned.
 
 ### What it looks like in action
