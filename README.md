@@ -1,6 +1,6 @@
 # Great FireWall Evasion
 
-This is a personal implementation of a packet fragmentation that is designed to circumvent the "Great Firewall". Depends on the [Scapy](https://scapy.net/) library.
+This is a personal implementation of a packet fragmentation that is designed to circumvent the "Great Firewall" using the [Scapy](https://scapy.net/) library.
 
 ## Getting Started
 
