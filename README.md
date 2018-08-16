@@ -22,7 +22,7 @@ You should
 3. `sudo python frag.py[ttl of dummy packets]` to send the packet over where number of hops is where you think the firewall is   
 
 ## Concepts
-The Great Firewall that I am trying to bypass refers to the on-path device that examines network packets and responds by injecting RST packets or DNS replies. This essentially severs a connection prematurely if it detects network behavior it doesn't like. Often times, packets will not just contain all the information in one packet and the Great Firewall must reassemble any message that spans across multiple packets. This method of circumventing the Great Firewall depends on the Great Firewall's ability to reassemble messages.
+The Great Firewall that I am trying to bypass refers to the on-path device that examines network packets and responds by injecting RST packets. This essentially severs a connection prematurely if it detects network behavior it doesn't like. Often times, packets will not just contain all the information in one packet and the Great Firewall must reassemble any message that spans across multiple packets. This method of circumventing the Great Firewall depends on the Great Firewall's need to reassemble messages.
 
 ### Fragmentation
 The method this program uses to circumvent the firewall follows:
